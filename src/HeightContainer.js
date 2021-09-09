@@ -6,7 +6,7 @@ const HeightContainer = () => {
   const { db } = useEasybase();
 
   const mounted = async () => {
-    const randNum = Math.floor(Math.random() * (930 - 0 + 1)) + 0;
+    const randNum = Math.floor(Math.random() * (640 - 0 + 1)) + 0;
     const ebData = await db("PEOPLE").return().limit(1).offset(randNum).all();
     setEasybaseData(ebData);
     console.log("DATA", easybaseData);
