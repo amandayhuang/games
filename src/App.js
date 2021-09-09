@@ -1,33 +1,49 @@
-import './App.css';
-import { EasybaseProvider, useEasybase } from 'easybase-react';
-import { useEffect } from 'react';
-import ebconfig from './ebconfig';
+import "./App.css";
+import { EasybaseProvider, useEasybase } from "easybase-react";
+import { useEffect } from "react";
+import ebconfig from "./ebconfig";
+import { Grid, Paper } from "@material-ui/core";
+import HeightContainer from "./HeightContainer";
 
-function App() {
+const App = () => {
   return (
-    <div className="App" style={{ display: 'flex', justifyContent: 'center' }}>
-      <EasybaseProvider ebconfig={ebconfig}>
-        <Notes />
-        <NewNoteButton />
-      </EasybaseProvider>
-    </div>
+    <EasybaseProvider ebconfig={ebconfig}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6} m={3} l={3}>
+          <Paper>Game</Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} m={3} l={3}>
+          <Paper>Game</Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} m={3} l={3}>
+          <Paper>Game</Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} m={3} l={3}>
+          <Paper>Game</Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} m={3} l={3}>
+          <Paper>Game</Paper>
+        </Grid>
+      </Grid>
+      <HeightContainer />
+    </EasybaseProvider>
   );
-}
+};
 
 function Notes() {
   const { Frame, sync, configureFrame } = useEasybase();
   console.log(Frame);
 
   useEffect(() => {
-    configureFrame({ tableName: 'NOTES', limit: 10 });
+    configureFrame({ tableName: "NOTES", limit: 10 });
     sync();
-  }, []);
+  }, [configureFrame, sync]);
 
   const noteRootStyle = {
-    border: '2px #0af solid',
+    border: "2px #0af solid",
     borderRadius: 9,
     margin: 20,
-    backgroundColor: '#efefef',
+    backgroundColor: "#efefef",
     padding: 6,
   };
 
@@ -51,15 +67,15 @@ function NewNoteButton() {
   const { Frame, sync } = useEasybase();
 
   const buttonStyle = {
-    position: 'absolute',
+    position: "absolute",
     left: 10,
     top: 10,
     fontSize: 21,
   };
 
   const handleClick = () => {
-    const newTitle = prompt('Please enter a title for your note');
-    const newDescription = prompt('Please enter your description');
+    const newTitle = prompt("Please enter a title for your note");
+    const newDescription = prompt("Please enter your description");
 
     Frame().push({
       title: newTitle,
