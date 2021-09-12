@@ -34,7 +34,7 @@ const HeightContainer = () => {
 
   return (
     <>
-      <a href="/games">
+      <a href="/">
         <Box display="absolute" display="flex" alignItems="center">
           {" "}
           <ArrowBackIcon />

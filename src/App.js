@@ -11,12 +11,12 @@ import Home from "./Home";
 const App = () => {
   return (
     <EasybaseProvider ebconfig={ebconfig}>
-      <Router>
+      <Router basename="/games">
         <Switch>
-          <Route path="/games/height">
+          <Route path="/height">
             <HeightContainer />
           </Route>
-          <Route path="/games">
+          <Route path="/">
             <Home />
           </Route>
         </Switch>
