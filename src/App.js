@@ -16,7 +16,7 @@ const App = () => {
           <Route path="/games/height">
             <HeightContainer />
           </Route>
-          <Route path="/">
+          <Route path="/games">
             <Home />
           </Route>
         </Switch>
