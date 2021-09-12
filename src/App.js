@@ -5,13 +5,13 @@ import ebconfig from "./ebconfig";
 import { Box, Grid, Paper, Typography } from "@material-ui/core";
 import HeightContainer from "./HeightContainer";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { HashRouter, Route, Switch, Link } from "react-router-dom";
 import Home from "./Home";
 
 const App = () => {
   return (
     <EasybaseProvider ebconfig={ebconfig}>
-      <Router basename="/games">
+      <HashRouter>
         <Switch>
           <Route path="/height">
             <HeightContainer />
@@ -20,7 +20,7 @@ const App = () => {
             <Home />
           </Route>
         </Switch>
-      </Router>
+      </HashRouter>
       {/* <HeightContainer /> */}
     </EasybaseProvider>
   );
