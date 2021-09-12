@@ -34,13 +34,13 @@ const HeightContainer = () => {
 
   return (
     <>
-      <a href="/games">
+      <Link to="/">
         <Box display="absolute" display="flex" alignItems="center">
           {" "}
           <ArrowBackIcon />
           <div> more games</div>
         </Box>
-      </a>
+      </Link>
       <Box>
         <p variant="outlined" className="title game">
           {" "}
@@ -75,8 +75,20 @@ const HeightContainer = () => {
 
                 {showHeight ? (
                   <Box width="200">
-                    <p>{`${ele.heightfeet}' ${ele.heightinches}"`}</p>
-                    <Box onClick={skipHandler}>Next</Box>
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      className="heightButton"
+                    >{`${ele.heightfeet}' ${ele.heightinches}"`}</Box>
+                    <Box
+                      onClick={skipHandler}
+                      display="flex"
+                      justifyContent="space-between"
+                      className="heightButton"
+                    >
+                      <div>Next</div>
+                      <ArrowForwardIcon />
+                    </Box>
                   </Box>
                 ) : (
                   <Box width="200px">
