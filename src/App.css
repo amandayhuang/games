@@ -28,6 +28,23 @@
   color: #61dafb;
 }
 
+.title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 70px;
+  text-align: center;
+}
+
+.game {
+  font-size: 40px;
+  cursor: pointer;
+  color: black;
+  text-decoration: none !important;
+}
+
+.arrow {
+  font-size: 30px !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
