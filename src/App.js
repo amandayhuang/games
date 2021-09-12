@@ -13,7 +13,7 @@ const App = () => {
     <EasybaseProvider ebconfig={ebconfig}>
       <Router>
         <Switch>
-          <Route path="/height">
+          <Route path="/games/height">
             <HeightContainer />
           </Route>
           <Route path="/">

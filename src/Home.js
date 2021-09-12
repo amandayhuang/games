@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <Box display="flex" justifyContent="center" flexDirection="column">
       <p className="title">mini games to play by yourself or with others</p>
-      <Link to="/height">
+      <Link to="/games/height">
         <p variant="outlined" className="title game">
           {" "}
           guess the famous person's height{" "}
