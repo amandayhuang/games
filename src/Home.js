@@ -14,6 +14,12 @@ const Home = () => {
           <ArrowForwardIosIcon className="arrow" />
         </p>
       </Link>
+      <Link to="/keyword">
+        <p variant="outlined" className="title game">
+          {" "}
+          text message keyword search <ArrowForwardIosIcon className="arrow" />
+        </p>
+      </Link>
     </Box>
   );
 };
