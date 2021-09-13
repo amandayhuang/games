@@ -50,7 +50,7 @@ const HeightContainer = () => {
           >
             <h4>Keyword</h4>
             <Box
-              bgcolor="#bbff69"
+              bgcolor="#0f08d1"
               borderRadius={6}
               color="white"
               padding={2}
