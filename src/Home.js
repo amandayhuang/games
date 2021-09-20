@@ -1,5 +1,5 @@
 import "./App.css";
-import { Box, Grid, Paper, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { Link } from "react-router-dom";
 
@@ -18,6 +18,12 @@ const Home = () => {
         <p variant="outlined" className="title game">
           {" "}
           text message keyword search <ArrowForwardIosIcon className="arrow" />
+        </p>
+      </Link>
+      <Link to="/art">
+        <p variant="outlined" className="title game">
+          {" "}
+          learn about art <ArrowForwardIosIcon className="arrow" />
         </p>
       </Link>
     </Box>
