@@ -20,7 +20,6 @@ const MetContainer = () => {
       const data = await axios.get(
         `https://collectionapi.metmuseum.org/public/collection/v1/objects/${artObjects[randNum]}`
       );
-      console.log(data);
       setObjectData([data]);
     } catch (error) {
       console.log("ERROR", error);
@@ -39,8 +38,6 @@ const MetContainer = () => {
   useEffect(() => {
     fetchObject();
   }, [num]);
-
-  console.log(objectData);
 
   return (
     <>
@@ -66,7 +63,6 @@ const MetContainer = () => {
         </p> */}
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {objectData.map((ele) => {
-            console.log("ELE", ele);
             return (
               <Box
                 display="flex"
@@ -77,7 +73,7 @@ const MetContainer = () => {
                 <h4 className="artTitle">{ele.data.title}</h4>
                 <img
                   src={ele.data.primaryImage}
-                  width="400"
+                  width="300"
                   alt={ele.data.title}
                   onError={(e) => {
                     setNum(num + 1);
@@ -85,7 +81,7 @@ const MetContainer = () => {
                 />
 
                 {showDetails ? (
-                  <Box width="400">
+                  <Box width="300">
                     <Box
                       display="flex"
                       justifyContent="space-between"
@@ -102,7 +98,7 @@ const MetContainer = () => {
                     </Box>
                   </Box>
                 ) : (
-                  <Box width="400px">
+                  <Box width="300px">
                     <Box
                       onClick={revealHandler}
                       display="flex"
@@ -128,7 +124,7 @@ const MetContainer = () => {
           })}
         </div>
       </Box>
-      <Footer text={"Art is in the eye of the beholder."} />
+      <Footer text={"Art is for everyone."} />
     </>
   );
 };
