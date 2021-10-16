@@ -30,11 +30,15 @@ export const mtaColors = {
 
 export const stationDirections = {
     "G N": "Church Ave",
+    "G S": "Court Sq",
     "A S": "Inwood-207 St",
     "A N": "Far Rockaway / Ozone Park",
     "C S": "Euclid Ave",
+    "C N": "168 St",
     "F N": "Jamaica-179 St",
     "F S": "Coney Island-Stillwell Av",
+    "R S": "Bay Ridge-95 St",
+    "R N": "Forest Hills-71 Av",
 }
 
 const MtaContainer = () => {
@@ -49,7 +53,6 @@ const MtaContainer = () => {
         `https://my-mta.herokuapp.com/`
       );
       const formattedData = formatMtaData(response.data)
-      console.log(formattedData)
       setData(formattedData);
       setLoading(false)
     } catch (e) {
@@ -91,8 +94,8 @@ const MtaContainer = () => {
             <TableCell align="right"><Box className='mtaLine' style={{backgroundColor:`${mtaColors[row.trainId]}`}}><span className='innerMtaLine'>{`${row.trainId}`}</span></Box></TableCell>
               <TableCell align="left">
                 <Box display='flex' flexDirection='column'>
-                  <Box>{row.stationName}</Box>
-                  <Box>{row.direction} {stationDirections[`${row.trainId} ${row.direction}`]}</Box>
+                  <Box>{row.stationName} ({row.direction})</Box>
+                  <Box>{stationDirections[`${row.trainId} ${row.direction}`]}</Box>
                 </Box></TableCell>
               <TableCell align="right">{row.minAway}</TableCell>
               <TableCell align="right">{row.eta}</TableCell>
