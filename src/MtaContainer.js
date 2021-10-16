@@ -94,11 +94,11 @@ const MtaContainer = () => {
             <TableCell align="right"><Box className='mtaLine' style={{backgroundColor:`${mtaColors[row.trainId]}`}}><span className='innerMtaLine'>{`${row.trainId}`}</span></Box></TableCell>
               <TableCell align="left">
                 <Box display='flex' flexDirection='column'>
-                  <Box>{row.stationName} ({row.direction})</Box>
+                  <Box><span className='stationName'>{row.stationName}</span></Box>
                   <Box>{stationDirections[`${row.trainId} ${row.direction}`]}</Box>
                 </Box></TableCell>
               <TableCell align="right">{row.minAway}</TableCell>
-              <TableCell align="right">{row.eta}</TableCell>
+              {/* <TableCell align="right">{row.eta}</TableCell> */}
             </TableRow>
           ))}
         </TableBody>
