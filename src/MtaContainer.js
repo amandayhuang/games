@@ -46,7 +46,7 @@ const MtaContainer = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://my-mta.herokuapp.com/`
+        `https://my-mta.herokuapp.com/`
       );
       const formattedData = formatMtaData(response.data)
       console.log(formattedData)
