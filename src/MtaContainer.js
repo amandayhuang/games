@@ -29,10 +29,10 @@ export const mtaColors = {
 }
 
 export const stationDirections = {
-    "G N": "Church Ave",
-    "G S": "Court Sq",
-    "A S": "Inwood-207 St",
-    "A N": "Far Rockaway / Ozone Park",
+    "G S": "Church Ave",
+    "G N": "Court Sq",
+    "A N": "Inwood-207 St",
+    "A S": "Far Rockaway / Ozone Park",
     "C S": "Euclid Ave",
     "C N": "168 St",
     "F N": "Jamaica-179 St",
@@ -45,6 +45,7 @@ const MtaContainer = () => {
   const [data, setData] = useState([]);
   const [stationNames, setStationNames] = useState([]);
   const [filter, setFilter] = useState('All')
+  const [dir, setDir] = useState('All')
   const [num, setNum] = useState(0);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -90,24 +91,36 @@ const MtaContainer = () => {
     <>
     <Box display='flex' justifyContent='center' mb={2}> <Box>({data.length}) <Button onClick={refreshHandler} variant='outlined' color='primary'>Refresh</Button></Box></Box>
     <Box className='chipBox' style={{overflow:'scroll'}}  display='flex'>
-    <Box display='flex'  mb={2} color='primary' style={{overflow:'visible'}} >
-        {
-            
-            ['All', ...stationNames].map((name) =>{
-                return  <Chip className='chip' label={name} variant={name === filter ? undefined : "outlined" } onClick={name === filter ? undefined : () => chipHandler(name)} color='primary' key={name}  style={{overflow:'visible'}}/> 
-            })
-            
-        }
+        <Box display='flex'  mb={2} color='primary' style={{overflow:'visible'}} >
+            {
+                
+                ['All', ...stationNames].map((name) =>{
+                    return  <Chip className='chip' label={name} variant={name === filter ? undefined : "outlined" } onClick={name === filter ? undefined : () => chipHandler(name)} color='primary' key={name}  style={{overflow:'visible'}}/> 
+                })
+                
+            }
+        </Box>
     </Box>
+    <Box className='chipBox' style={{overflow:'scroll'}}  display='flex'>
+        <Box display='flex'  mb={2} color='primary' style={{overflow:'visible'}} >
+            {
+                
+                ['All', 'N', 'S'].map((name) =>{
+                    return  <Chip className='chip' label={name} variant={name === dir ? undefined : "outlined" } onClick={name === dir ? undefined : () => setDir(name)} color='primary' key={name}  style={{overflow:'visible'}}/> 
+                })
+                
+            }
+        </Box>
     </Box>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 350, width:'60%' }}>     
         <TableBody>
           {data.map((row, index) => {
-            return filter === 'All' || filter=== row.stationName ? 
+            return (filter === 'All' || filter=== row.stationName) && (dir === 'All' || dir === row.direction) ? 
             <TableRow
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              className={row.direction === 'N' ? 'row' : undefined}
             >
             <TableCell align="right"><Box className='mtaLine' style={{backgroundColor:`${mtaColors[row.trainId]}`}}><span className='innerMtaLine'>{`${row.trainId}`}</span></Box></TableCell>
               <TableCell align="left">
