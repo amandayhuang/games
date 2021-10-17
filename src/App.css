@@ -95,6 +95,14 @@ a {
   font-weight: 600;
 }
 
+.chip{
+  margin:10px!important;
+}
+
+.chipBox::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

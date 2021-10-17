@@ -85,12 +85,12 @@ const MtaContainer = () => {
             loading ? <LinearProgress/> : error ? <Box>Error loading arrival times</Box> :
     <>
     <Box display='flex' justifyContent='center' mb={2}> <Box>({data.length}) <Button onClick={refreshHandler} variant='outlined'>Refresh</Button></Box></Box>
-    <Box display='flex' justifyContent='space-around' alignItems='space-around' mb={2} color='primary'>
+    <Box display='flex' className='chipBox' justifyContent='center' mb={2} color='primary' width='100%' style={{overflow:'scroll'}}>
         {
             ['All',...stationNames].map((name) =>{
                 return name === filter ? 
-                <Chip label={name}  color='primary' key={name}/> 
-                : <Chip label={name} variant="outlined" onClick={() => setFilter(name)} color='primary' key={name}/> 
+                <Chip className='chip' label={name}  color='primary' key={name} size="small" /> 
+                : <Chip className='chip' label={name} variant="outlined" onClick={() => setFilter(name)} color='primary' key={name} size="small"/> 
             })
         }
     </Box>
