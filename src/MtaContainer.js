@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, LinearProgress, Table, TableBody, TableCell, TableContainer, Typography, TableHead, TableRow, Paper, Button } from "@material-ui/core";
+import { Box, LinearProgress, Table, TableBody, TableCell, TableContainer, Chip, TableRow, Paper, Button } from "@material-ui/core";
 import Footer from "./Footer";
 import axios from "axios";
 import {formatMtaData} from './Util'
@@ -43,6 +43,8 @@ export const stationDirections = {
 
 const MtaContainer = () => {
   const [data, setData] = useState([]);
+  const [stationNames, setStationNames] = useState([]);
+  const [filter, setFilter] = useState('All')
   const [num, setNum] = useState(0);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -52,8 +54,9 @@ const MtaContainer = () => {
       const response = await axios.get(
         `https://my-mta.herokuapp.com/`
       );
-      const formattedData = formatMtaData(response.data)
-      setData(formattedData);
+      const [formattedData, names] = formatMtaData(response.data)
+      setData(formattedData)
+      setStationNames(names)
       setLoading(false)
     } catch (e) {
       setLoading(false)
@@ -81,12 +84,21 @@ const MtaContainer = () => {
         {
             loading ? <LinearProgress/> : error ? <Box>Error loading arrival times</Box> :
     <>
-    <Box display='flex' justifyContent='center'> <Box>({data.length}) <Button onClick={refreshHandler} variant='outlined'>Refresh</Button></Box></Box>
+    <Box display='flex' justifyContent='center' mb={2}> <Box>({data.length}) <Button onClick={refreshHandler} variant='outlined'>Refresh</Button></Box></Box>
+    <Box display='flex' justifyContent='space-around' alignItems='space-around' mb={2} color='primary'>
+        {
+            ['All',...stationNames].map((name) =>{
+                return name === filter ? 
+                <Chip label={name}  color='primary' key={name}/> 
+                : <Chip label={name} variant="outlined" onClick={() => setFilter(name)} color='primary' key={name}/> 
+            })
+        }
+    </Box>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 350, width:'60%' }} aria-label="simple table">     
         <TableBody>
-          {data.map((row, index) => (
-            
+          {data.map((row, index) => {
+            return filter === 'All' || filter=== row.stationName ? 
             <TableRow
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -99,8 +111,8 @@ const MtaContainer = () => {
                 </Box></TableCell>
               <TableCell align="right">{row.minAway}</TableCell>
               {/* <TableCell align="right">{row.eta}</TableCell> */}
-            </TableRow>
-          ))}
+            </TableRow> : <></>
+        })}
         </TableBody>
       </Table>
     </TableContainer>
