@@ -70,6 +70,10 @@ const MtaContainer = () => {
       setNum(num +1)
   }
 
+  const chipHandler = (itemName) =>{
+      setFilter(itemName)
+  }
+
   useEffect(() => {
     fetchData();
   }, [num]);
@@ -79,23 +83,25 @@ const MtaContainer = () => {
       <Box>
         <p variant="outlined" className="title game">
           {" "}
-          arriving trains near boerum hill
+          arriving trains
         </p>
         {
             loading ? <LinearProgress/> : error ? <Box>Error loading arrival times</Box> :
     <>
-    <Box display='flex' justifyContent='center' mb={2}> <Box>({data.length}) <Button onClick={refreshHandler} variant='outlined'>Refresh</Button></Box></Box>
-    <Box display='flex' className='chipBox' justifyContent='center' mb={2} color='primary' width='100%' style={{overflow:'scroll'}}>
+    <Box display='flex' justifyContent='center' mb={2}> <Box>({data.length}) <Button onClick={refreshHandler} variant='outlined' color='primary'>Refresh</Button></Box></Box>
+    <Box className='chipBox' style={{overflow:'scroll'}}  display='flex'>
+    <Box display='flex'  mb={2} color='primary' style={{overflow:'visible'}} >
         {
-            ['All',...stationNames].map((name) =>{
-                return name === filter ? 
-                <Chip className='chip' label={name}  color='primary' key={name} size="small" /> 
-                : <Chip className='chip' label={name} variant="outlined" onClick={() => setFilter(name)} color='primary' key={name} size="small"/> 
+            
+            ['All', ...stationNames].map((name) =>{
+                return  <Chip className='chip' label={name} variant={name === filter ? undefined : "outlined" } onClick={name === filter ? undefined : () => chipHandler(name)} color='primary' key={name}  style={{overflow:'visible'}}/> 
             })
+            
         }
     </Box>
+    </Box>
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 350, width:'60%' }} aria-label="simple table">     
+      <Table sx={{ minWidth: 350, width:'60%' }}>     
         <TableBody>
           {data.map((row, index) => {
             return filter === 'All' || filter=== row.stationName ? 
