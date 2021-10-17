@@ -6,9 +6,9 @@
     "static/js/1.a70af423.chunk.js.map": "/games/static/js/1.a70af423.chunk.js.map",
     "static/js/2.373b9ea2.chunk.js": "/games/static/js/2.373b9ea2.chunk.js",
     "static/js/2.373b9ea2.chunk.js.map": "/games/static/js/2.373b9ea2.chunk.js.map",
-    "main.css": "/games/static/css/main.e8bcb1f5.chunk.css",
-    "main.js": "/games/static/js/main.e9557e56.chunk.js",
-    "main.js.map": "/games/static/js/main.e9557e56.chunk.js.map",
+    "main.css": "/games/static/css/main.b38e1efb.chunk.css",
+    "main.js": "/games/static/js/main.b0c64a7f.chunk.js",
+    "main.js.map": "/games/static/js/main.b0c64a7f.chunk.js.map",
     "runtime-main.js": "/games/static/js/runtime-main.fb10b24e.js",
     "runtime-main.js.map": "/games/static/js/runtime-main.fb10b24e.js.map",
     "static/js/5.932fa384.chunk.js": "/games/static/js/5.932fa384.chunk.js",
@@ -30,13 +30,13 @@
     "static/js/13.c1a83da5.chunk.js": "/games/static/js/13.c1a83da5.chunk.js",
     "static/js/13.c1a83da5.chunk.js.map": "/games/static/js/13.c1a83da5.chunk.js.map",
     "index.html": "/games/index.html",
-    "static/css/main.e8bcb1f5.chunk.css.map": "/games/static/css/main.e8bcb1f5.chunk.css.map",
+    "static/css/main.b38e1efb.chunk.css.map": "/games/static/css/main.b38e1efb.chunk.css.map",
     "static/js/5.932fa384.chunk.js.LICENSE.txt": "/games/static/js/5.932fa384.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.fb10b24e.js",
     "static/js/5.932fa384.chunk.js",
-    "static/css/main.e8bcb1f5.chunk.css",
-    "static/js/main.e9557e56.chunk.js"
+    "static/css/main.b38e1efb.chunk.css",
+    "static/js/main.b0c64a7f.chunk.js"
   ]
 }
