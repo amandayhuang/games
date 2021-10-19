@@ -3,6 +3,8 @@ import { Box, LinearProgress, Table, TableBody, TableCell, TableContainer, Chip,
 import Footer from "./Footer";
 import axios from "axios";
 import {formatMtaData} from './Util'
+import RefreshIcon from '@mui/icons-material/Refresh';
+import moment from 'moment'
 
 export const mtaColors = {
     "A": "#0039A6",
@@ -55,6 +57,7 @@ const MtaContainer = () => {
       const response = await axios.get(
         `https://my-mta.herokuapp.com/`
       );
+      console.log(response)
       const [formattedData, names] = formatMtaData(response.data)
       setData(formattedData)
       setStationNames(names)
@@ -89,7 +92,7 @@ const MtaContainer = () => {
         {
             loading ? <LinearProgress/> : error ? <Box>Error loading arrival times</Box> :
     <>
-    <Box display='flex' justifyContent='center' mb={2}> <Box>({data.length}) <Button onClick={refreshHandler} variant='outlined' color='primary'>Refresh</Button></Box></Box>
+    <Box display='flex' justifyContent='center' mb={2}> <Box><span style={{  fontStyle: 'italic'}}>as of {moment().format("hh:mm a")}</span> ({data.length}) <Button onClick={refreshHandler} color='primary'><RefreshIcon/></Button></Box></Box>
     <Box className='chipBox' style={{overflow:'scroll'}}  display='flex'>
         <Box display='flex'  mb={2} color='primary' style={{overflow:'visible'}} >
             {
