@@ -41,6 +41,10 @@ export const stationDirections = {
     "F S": "Coney Island-Stillwell Av",
     "R S": "Bay Ridge-95 St",
     "R N": "Forest Hills-71 Av",
+    "2 S": "Flatbush Av-Brooklyn College",
+    "2 N": "Wakefield-241 St",
+    "3 S": "New Lots Av",
+    "3 N": "Harlem-148 St",
 }
 
 const MtaContainer = () => {
