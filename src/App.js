@@ -5,6 +5,7 @@ import HeightContainer from "./HeightContainer";
 import Keyword from "./Keyword";
 import MetContainer from "./MetContainer";
 import MtaContainer from "./MtaContainer";
+import ActorContainer from "./ActorContainer";
 import { HashRouter, Route, Switch, Link } from "react-router-dom";
 import Home from "./Home";
 
@@ -24,6 +25,9 @@ const App = () => {
           </Route>
           <Route path="/mta">
             <MtaContainer />
+          </Route>
+          <Route path="/actor">
+            <ActorContainer />
           </Route>
           <Route path="/">
             <Home />
