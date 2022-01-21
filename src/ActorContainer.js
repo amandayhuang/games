@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useEasybase } from "easybase-react";
-import { Box, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import BlockIcon from "@material-ui/icons/Block";
+import { Box, Typography, TextField, Button } from "@material-ui/core";
 import Footer from "./Footer";
 import "./Actor.css";
 import moment from "moment";
@@ -20,6 +16,9 @@ const ActorContainer = () => {
   const [guessesLeft, setGuessesLeft] = useState(GUESSES);
   const [firstNameInput, setFirstNameInput] = useState([]);
   const [lastNameInput, setLastNameInput] = useState([]);
+  const [error, setError] = useState(false);
+  const [errorText, setErrorText] = useState("");
+  const [isWinner, setIsWinner] = useState(false);
 
   const { db } = useEasybase();
 
@@ -65,11 +64,51 @@ const ActorContainer = () => {
     }
   };
 
+  const checkName = (answer, input, guess, type) => {
+    const newGuess = [...guess];
+    let matches = 0;
+    answer.forEach((letter, i) => {
+      if (letter === input[i]) {
+        newGuess[i] = letter;
+        matches = matches + 1;
+      }
+    });
+    if (type === "first") {
+      setFirstNameGuess(newGuess);
+    } else {
+      setLastNameGuess(newGuess);
+    }
+
+    return matches === answer.length ? true : false;
+  };
+
+  const checkGuess = () => {
+    const checkFirst = checkName(
+      firstNameAnswer,
+      firstNameInput,
+      firstNameGuess,
+      "first"
+    );
+    const checkLast = checkName(
+      lastNameAnswer,
+      lastNameInput,
+      lastNameGuess,
+      "last"
+    );
+
+    if (checkFirst && checkLast) setIsWinner(true);
+  };
+
   useEffect(() => {
     fetchPerson();
   }, []);
 
-  console.log(easybaseData);
+  useEffect(() => {
+    if (firstNameAnswer.length > 1) checkGuess();
+  }, [firstNameInput, lastNameInput]);
+
+  if (easybaseData)
+    console.log("ANSWER", easybaseData.firstname, easybaseData.lastname);
 
   const revealHandler = (index) => {
     setGuessesLeft(guessesLeft - 1);
@@ -78,11 +117,31 @@ const ActorContainer = () => {
     setHints(newHints);
   };
 
+  const guessHandler = (e) => {
+    e.preventDefault();
+    const guess = e.target.guess.value;
+    const parts = guess.split(" ");
+    if (parts.length !== 2) {
+      setError(true);
+      setErrorText("submit a first and last name please");
+    } else {
+      setError(false);
+      setErrorText("");
+      setFirstNameInput(parts[0].toUpperCase());
+      setLastNameInput(parts[1].toUpperCase());
+      setGuessesLeft(guessesLeft - 1);
+    }
+    const guessInput = document.getElementById("guess");
+    guessInput.value = "";
+    console.log("SUBMITTED", e.target.guess.value);
+  };
+
   return (
     <>
       {easybaseData.firstname && (
         <>
           <Typography>{`Guesses Left: ${guessesLeft}`}</Typography>
+          <Typography>{`Winner? ${isWinner}`}</Typography>
           <Box display="flex">
             {firstNameGuess.map((letter) => (
               <Box className="letter">{letter}</Box>
@@ -102,6 +161,20 @@ const ActorContainer = () => {
           )}
         </>
       )}
+      {guessesLeft > 0 && !isWinner && (
+        <form onSubmit={(e) => guessHandler(e)}>
+          <TextField
+            label="enter guess"
+            variant="outlined"
+            name="guess"
+            error={error}
+            helperText={errorText}
+            id="guess"
+          />
+          <Button type="submit">submit</Button>
+        </form>
+      )}
+
       <Footer text={"Just as fun as wordle right?"} />
     </>
   );
