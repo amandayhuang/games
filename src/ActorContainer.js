@@ -163,17 +163,17 @@ const ActorContainer = () => {
             alignItems={"center"}
             width="100%"
           >
-            <Box className="guessTitle">{"Identify the Actor"}</Box>
+            <Box className="guessTitle">{"Name that Actor"}</Box>
             <Box>
               <Chip label={guessesLeft} color="secondary" className="chip" />
-              {`Guesses Left`}
+              {`Guesses`}
             </Box>
           </Box>
         </Toolbar>
         {!easybaseData.firstname && <LinearProgress />}
       </AppBar>
       {easybaseData.firstname && (
-        <Box display="flex" justifyContent="center">
+        <Box display="flex" justifyContent="center" alignItems={"center"}>
           <Box maxWidth={"700px"}>
             <Box display="flex">
               {firstNameGuess.map((letter) => (
@@ -200,27 +200,29 @@ const ActorContainer = () => {
               )
             )}
             {guessesLeft > 0 && !isWinner && (
-              <form onSubmit={(e) => guessHandler(e)} className="form">
-                <TextField
-                  fullWidth
-                  label="enter guess"
-                  variant="outlined"
-                  name="guess"
-                  error={error}
-                  helperText={errorText}
-                  id="guess"
-                  className="input"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <Button type="submit" color="primary">
-                          submit
-                        </Button>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </form>
+              <Box width="100%">
+                <form onSubmit={(e) => guessHandler(e)} className="form">
+                  <TextField
+                    fullWidth
+                    label="enter guess"
+                    variant="outlined"
+                    name="guess"
+                    error={error}
+                    helperText={errorText}
+                    id="guess"
+                    className="input"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Button type="submit" color="primary">
+                            submit
+                          </Button>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </form>
+              </Box>
             )}
           </Box>
           <ActorPostDialog
