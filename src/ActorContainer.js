@@ -10,6 +10,7 @@ import {
   LinearProgress,
   InputAdornment,
   BottomNavigation,
+  Chip,
 } from "@material-ui/core";
 import Footer from "./Footer";
 import "./Actor.css";
@@ -156,7 +157,12 @@ const ActorContainer = () => {
     <>
       <AppBar position="sticky" className="appBar">
         <Toolbar>
-          <Box display="flex" justifyContent={"center"} alignItems={"center"}>
+          <Box
+            display="flex"
+            justifyContent={"space-between"}
+            alignItems={"space-between"}
+            width="100%"
+          >
             <Box className="guessTitle">{"Identify the Actor"}</Box>
             <Box>{`Guesses Left: ${guessesLeft}`}</Box>
           </Box>
@@ -191,27 +197,27 @@ const ActorContainer = () => {
               )
             )}
             {guessesLeft > 0 && !isWinner && (
-              <BottomNavigation>
-                <form onSubmit={(e) => guessHandler(e)}>
-                  <TextField
-                    label="enter guess"
-                    variant="outlined"
-                    name="guess"
-                    error={error}
-                    helperText={errorText}
-                    id="guess"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <Button type="submit" color="primary">
-                            submit
-                          </Button>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </form>
-              </BottomNavigation>
+              <form onSubmit={(e) => guessHandler(e)} className="form">
+                <TextField
+                  fullWidth
+                  label="enter guess"
+                  variant="outlined"
+                  name="guess"
+                  error={error}
+                  helperText={errorText}
+                  id="guess"
+                  className="input"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Button type="submit" color="primary">
+                          submit
+                        </Button>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </form>
             )}
           </Box>
           <ActorPostDialog

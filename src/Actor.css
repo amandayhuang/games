@@ -37,3 +37,12 @@
   top: auto;
   bottom: 0;
 }
+
+.form {
+  position: fixed;
+  bottom: 10px;
+}
+
+.input {
+  background-color: rgb(235, 235, 235);
+}
