@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useEasybase } from "easybase-react";
-import { Box, Typography, TextField, Button } from "@material-ui/core";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  AppBar,
+  Toolbar,
+  LinearProgress,
+  InputAdornment,
+} from "@material-ui/core";
 import Footer from "./Footer";
 import "./Actor.css";
 import moment from "moment";
+import ActorPostDialog from "./ActorPostDialog";
 
 const ActorContainer = () => {
   const GUESSES = 5;
@@ -14,11 +24,13 @@ const ActorContainer = () => {
   const [lastNameGuess, setLastNameGuess] = useState([]);
   const [hints, setHints] = useState([]);
   const [guessesLeft, setGuessesLeft] = useState(GUESSES);
+  const [hintsUsed, setHintsUsed] = useState(0);
   const [firstNameInput, setFirstNameInput] = useState([]);
   const [lastNameInput, setLastNameInput] = useState([]);
   const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState("");
   const [isWinner, setIsWinner] = useState(false);
+  const [openPost, setOpenPost] = useState(false);
 
   const { db } = useEasybase();
 
@@ -104,17 +116,21 @@ const ActorContainer = () => {
   }, []);
 
   useEffect(() => {
+    if (guessesLeft === 0 || isWinner) {
+      setOpenPost(true);
+    }
+  }, [guessesLeft, isWinner]);
+
+  useEffect(() => {
     if (firstNameAnswer.length > 1) checkGuess();
   }, [firstNameInput, lastNameInput]);
-
-  if (easybaseData)
-    console.log("ANSWER", easybaseData.firstname, easybaseData.lastname);
 
   const revealHandler = (index) => {
     setGuessesLeft(guessesLeft - 1);
     const newHints = [...hints];
     newHints[index].revealed = true;
     setHints(newHints);
+    setHintsUsed(hintsUsed + 1);
   };
 
   const guessHandler = (e) => {
@@ -133,46 +149,78 @@ const ActorContainer = () => {
     }
     const guessInput = document.getElementById("guess");
     guessInput.value = "";
-    console.log("SUBMITTED", e.target.guess.value);
   };
 
   return (
     <>
+      <AppBar position="sticky" className="appBar">
+        <Toolbar>
+          <Box display="flex" justifyContent={"center"} alignItems={"center"}>
+            <Box className="guessTitle">{"Identify the Actor"}</Box>
+            <Box>{`Guesses Left: ${guessesLeft}`}</Box>
+          </Box>
+        </Toolbar>
+        {!easybaseData.firstname && <LinearProgress />}
+      </AppBar>
       {easybaseData.firstname && (
-        <>
-          <Typography>{`Guesses Left: ${guessesLeft}`}</Typography>
-          <Typography>{`Winner? ${isWinner}`}</Typography>
-          <Box display="flex">
-            {firstNameGuess.map((letter) => (
-              <Box className="letter">{letter}</Box>
-            ))}
+        <Box display="flex" justifyContent="center">
+          <Box maxWidth={"700px"}>
+            <Box display="flex">
+              {firstNameGuess.map((letter) => (
+                <Box className="letter">{letter}</Box>
+              ))}
+            </Box>
+            <Box display="flex">
+              {lastNameGuess.map((letter) => (
+                <Box className="letter">{letter}</Box>
+              ))}
+            </Box>
+            <Box className="hint" onClick={() => setOpenPost(true)}>
+              {" "}
+              Hints (cost 1 guess)
+            </Box>
+            {hints.map((hint, index) =>
+              hint.revealed ? (
+                <Box className="hint"> {hint.hint}</Box>
+              ) : (
+                <Box className="hint" onClick={() => revealHandler(index)}>
+                  {" "}
+                  {hint.title}
+                </Box>
+              )
+            )}
+            {guessesLeft > 0 && !isWinner && (
+              <form onSubmit={(e) => guessHandler(e)}>
+                <TextField
+                  label="enter guess"
+                  variant="outlined"
+                  name="guess"
+                  error={error}
+                  helperText={errorText}
+                  id="guess"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Button type="submit" color="primary">
+                          submit
+                        </Button>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </form>
+            )}
           </Box>
-          <Box display="flex">
-            {lastNameGuess.map((letter) => (
-              <Box className="letter">{letter}</Box>
-            ))}
-          </Box>
-          {hints.map((hint, index) =>
-            hint.revealed ? (
-              <Box> {hint.hint}</Box>
-            ) : (
-              <Box onClick={() => revealHandler(index)}> {hint.title}</Box>
-            )
-          )}
-        </>
-      )}
-      {guessesLeft > 0 && !isWinner && (
-        <form onSubmit={(e) => guessHandler(e)}>
-          <TextField
-            label="enter guess"
-            variant="outlined"
-            name="guess"
-            error={error}
-            helperText={errorText}
-            id="guess"
+          <ActorPostDialog
+            open={openPost}
+            setOpen={setOpenPost}
+            isWinner={isWinner}
+            hintsUsed={hintsUsed}
+            guessesUsed={GUESSES - guessesLeft}
+            name={`${easybaseData.firstname} ${easybaseData.lastname}`}
+            url={easybaseData.url}
           />
-          <Button type="submit">submit</Button>
-        </form>
+        </Box>
       )}
 
       <Footer text={"Just as fun as wordle right?"} />
