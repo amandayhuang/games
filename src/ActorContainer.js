@@ -160,11 +160,14 @@ const ActorContainer = () => {
           <Box
             display="flex"
             justifyContent={"space-between"}
-            alignItems={"space-between"}
+            alignItems={"center"}
             width="100%"
           >
             <Box className="guessTitle">{"Identify the Actor"}</Box>
-            <Box>{`Guesses Left: ${guessesLeft}`}</Box>
+            <Box>
+              <Chip label={guessesLeft} color="secondary" className="chip" />
+              {`Guesses Left`}
+            </Box>
           </Box>
         </Toolbar>
         {!easybaseData.firstname && <LinearProgress />}

@@ -46,3 +46,8 @@
 .input {
   background-color: rgb(235, 235, 235);
 }
+
+.chip {
+  border-radius: 6px !important;
+  font-size: 15px !important;
+}
