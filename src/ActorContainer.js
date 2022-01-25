@@ -9,6 +9,7 @@ import {
   Toolbar,
   LinearProgress,
   InputAdornment,
+  BottomNavigation,
 } from "@material-ui/core";
 import Footer from "./Footer";
 import "./Actor.css";
@@ -190,25 +191,27 @@ const ActorContainer = () => {
               )
             )}
             {guessesLeft > 0 && !isWinner && (
-              <form onSubmit={(e) => guessHandler(e)}>
-                <TextField
-                  label="enter guess"
-                  variant="outlined"
-                  name="guess"
-                  error={error}
-                  helperText={errorText}
-                  id="guess"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <Button type="submit" color="primary">
-                          submit
-                        </Button>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </form>
+              <BottomNavigation>
+                <form onSubmit={(e) => guessHandler(e)}>
+                  <TextField
+                    label="enter guess"
+                    variant="outlined"
+                    name="guess"
+                    error={error}
+                    helperText={errorText}
+                    id="guess"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Button type="submit" color="primary">
+                            submit
+                          </Button>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </form>
+              </BottomNavigation>
             )}
           </Box>
           <ActorPostDialog
@@ -223,7 +226,9 @@ const ActorContainer = () => {
         </Box>
       )}
 
-      <Footer text={"Just as fun as wordle right?"} />
+      {!easybaseData.firstname && (
+        <Footer text={"Just as fun as wordle right?"} />
+      )}
     </>
   );
 };

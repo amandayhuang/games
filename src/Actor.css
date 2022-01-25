@@ -32,3 +32,8 @@
   font-size: 25px;
   font-weight: 600;
 }
+
+.bottomAppBar {
+  top: auto;
+  bottom: 0;
+}
