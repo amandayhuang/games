@@ -179,17 +179,6 @@ const ActorContainer = () => {
       {easybaseData.firstname && (
         <Box display="flex" justifyContent="center" alignItems={"center"}>
           <Box maxWidth={"700px"}>
-            <Box display="flex">
-              {firstNameGuess.map((letter) => (
-                <Box className="letter">{letter}</Box>
-              ))}
-            </Box>
-            <Box display="flex">
-              {lastNameGuess.map((letter) => (
-                <Box className="letter">{letter}</Box>
-              ))}
-            </Box>
-
             <Box display="flex" flexDirection="column">
               <Chip
                 className="hintChip"
@@ -219,6 +208,18 @@ const ActorContainer = () => {
                   />
                 )
               )}
+            </Box>
+            <Box mt={4}>
+              <Box display="flex">
+                {firstNameGuess.map((letter) => (
+                  <Box className="letter">{letter}</Box>
+                ))}
+              </Box>
+              <Box display="flex">
+                {lastNameGuess.map((letter) => (
+                  <Box className="letter">{letter}</Box>
+                ))}
+              </Box>
             </Box>
             {guessesLeft > 0 && !isWinner && (
               <Box width="100%">
