@@ -128,7 +128,7 @@ const ActorContainer = () => {
   }, [firstNameInput, lastNameInput]);
 
   const revealHandler = (index) => {
-    setGuessesLeft(guessesLeft - 1);
+    if (guessesLeft > 0) setGuessesLeft(guessesLeft - 1);
     const newHints = [...hints];
     newHints[index].revealed = true;
     setHints(newHints);
@@ -147,7 +147,7 @@ const ActorContainer = () => {
       setErrorText("");
       setFirstNameInput(parts[0].toUpperCase());
       setLastNameInput(parts[1].toUpperCase());
-      setGuessesLeft(guessesLeft - 1);
+      if (guessesLeft > 0) setGuessesLeft(guessesLeft - 1);
     }
     const guessInput = document.getElementById("guess");
     guessInput.value = "";
@@ -163,10 +163,14 @@ const ActorContainer = () => {
             alignItems={"center"}
             width="100%"
           >
-            <Box className="guessTitle">{"Name that Actor"}</Box>
+            <Box className="guessTitle">{"name that actor"}</Box>
             <Box>
-              <Chip label={guessesLeft} color="secondary" className="chip" />
-              {`Guesses`}
+              <Chip
+                label={guessesLeft}
+                color="secondary"
+                className="guessChip"
+              />
+              {`guesses`}
             </Box>
           </Box>
         </Toolbar>
@@ -185,20 +189,37 @@ const ActorContainer = () => {
                 <Box className="letter">{letter}</Box>
               ))}
             </Box>
-            <Box className="hint" onClick={() => setOpenPost(true)}>
-              {" "}
-              Hints (cost 1 guess)
+
+            <Box display="flex" flexDirection="column">
+              <Chip
+                className="hintChip"
+                label="hints (cost 1 guess)"
+                color="primary"
+              />
+              {hints.map((hint, index) =>
+                hint.revealed ? (
+                  <Chip
+                    className="hintChip"
+                    label={hint.hint}
+                    color="primary"
+                  />
+                ) : guessesLeft > 0 ? (
+                  <Chip
+                    onClick={() => revealHandler(index)}
+                    className="hintChip"
+                    color="secondary"
+                    label={hint.title}
+                  />
+                ) : (
+                  <Chip
+                    className="hintChip"
+                    label={hint.title}
+                    disabled
+                    color="secondary"
+                  />
+                )
+              )}
             </Box>
-            {hints.map((hint, index) =>
-              hint.revealed ? (
-                <Box className="hint"> {hint.hint}</Box>
-              ) : (
-                <Box className="hint" onClick={() => revealHandler(index)}>
-                  {" "}
-                  {hint.title}
-                </Box>
-              )
-            )}
             {guessesLeft > 0 && !isWinner && (
               <Box width="100%">
                 <form onSubmit={(e) => guessHandler(e)} className="form">
