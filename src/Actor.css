@@ -43,10 +43,6 @@
   bottom: 10px;
 }
 
-.input {
-  background-color: rgb(235, 235, 235);
-}
-
 .guessChip {
   border-radius: 6px !important;
   font-size: 15px !important;

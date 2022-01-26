@@ -232,7 +232,6 @@ const ActorContainer = () => {
                     error={error}
                     helperText={errorText}
                     id="guess"
-                    className="input"
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
