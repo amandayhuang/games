@@ -37,7 +37,7 @@ const ActorContainer = () => {
   const { db } = useEasybase();
 
   const fetchPerson = async () => {
-    const randNum = Math.floor(Math.random() * (900 + 1));
+    const randNum = Math.floor(Math.random() * (471 + 1));
     const ebData = await db("CELEB").return().limit(1).offset(randNum).all();
     if (ebData.length) {
       console.log("EB", ebData);

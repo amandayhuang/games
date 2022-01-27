@@ -41,12 +41,12 @@ const ActorPostDialog = ({
               Congrats! You found the answer in {guessesUsed - hintsUsed}{" "}
               {guessesUsed - hintsUsed === 1 ? "guess" : "guesses"} with{" "}
               {hintsUsed} {hintsUsed === 1 ? "hint" : "hints"}. Come back
-              tomorrow for a new prompt.{" "}
+              tomorrow for another round.{" "}
             </Typography>
           ) : (
             <Typography>
-              Sorry, you didn't get it this time. Come back tomorrow for a new
-              prompt.
+              Sorry, you didn't get it this time. Come back tomorrow for another
+              round.
             </Typography>
           )}
           <Box>
