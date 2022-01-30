@@ -136,6 +136,8 @@ const ActorContainer = () => {
           countryName: geo.data.country_name,
           postal: geo.data.postal,
           state: geo.data.state,
+          latitude: geo.data.latitude,
+          longitude: geo.data.longitude,
         })
         .one();
     };
