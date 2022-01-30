@@ -16,6 +16,8 @@ import Footer from "./Footer";
 import "./Actor.css";
 import moment from "moment";
 import ActorPostDialog from "./ActorPostDialog";
+import ActorPreDialog from "./ActorPreDialog";
+import axios from "axios";
 
 const ActorContainer = () => {
   const GUESSES = 5;
@@ -33,6 +35,7 @@ const ActorContainer = () => {
   const [errorText, setErrorText] = useState("");
   const [isWinner, setIsWinner] = useState(false);
   const [openPost, setOpenPost] = useState(false);
+  const [openPre, setOpenPre] = useState(true);
 
   const { db } = useEasybase();
 
@@ -118,8 +121,27 @@ const ActorContainer = () => {
   }, []);
 
   useEffect(() => {
+    const insertResult = async () => {
+      const geo = await axios.get("https://geolocation-db.com/json/");
+      db("RESULTS")
+        .insert({
+          ip: geo.data.IPv4,
+          dateCreated: new Date(),
+          isWinner,
+          numGuesses: GUESSES - guessesLeft - hintsUsed,
+          numHints: hintsUsed,
+          actorName: `${easybaseData.firstname} ${easybaseData.lastname}`,
+          city: geo.data.city,
+          countryCode: geo.data.country_code,
+          countryName: geo.data.country_name,
+          postal: geo.data.postal,
+          state: geo.data.state,
+        })
+        .one();
+    };
     if (guessesLeft === 0 || isWinner) {
       setOpenPost(true);
+      insertResult();
     }
   }, [guessesLeft, isWinner]);
 

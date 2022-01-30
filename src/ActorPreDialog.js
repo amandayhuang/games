@@ -28,11 +28,14 @@ const ActorPreDialog = ({ open, setOpen }) => {
           </IconButton>
         </Toolbar>
         <Box className="dialogBox">
-          <Typography>
-            Sorry, you didn't get it this time. Come back tomorrow for another
-            round.
-          </Typography>
-          <Button variant="outline">play</Button>
+          <ul>
+            <li>name that actor in 5 guesses</li>
+            <li>any matching letters will be revealed</li>
+            <li>hints can be used for 1 guess each</li>
+          </ul>
+          <Button variant="outlined" color="secondary" onClick={setOpen(false)}>
+            play
+          </Button>
         </Box>
       </Dialog>
     </div>
