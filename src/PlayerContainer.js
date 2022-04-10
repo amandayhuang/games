@@ -40,7 +40,7 @@ const PlayerContainer = () => {
   const { db } = useEasybase();
 
   const fetchPerson = async () => {
-    const randNum = Math.floor(Math.random() * (471 + 1));
+    const randNum = Math.floor(Math.random() * (198 + 1));
     const ebData = await db("PLAYER").return().limit(1).offset(randNum).all();
     if (ebData.length) {
       console.log("EB", ebData);
